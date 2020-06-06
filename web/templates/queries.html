@@ -11,25 +11,56 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="static/queries.js"> </script>
 </head>
-<body>
+<body onload="Parallax()">
+    <nav class="light-blue lighten-1" role="navigation">
+        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">EPIC SEARCH</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="/index">index</a></li>
+            </ul>
+    
+            <ul id="nav-mobile" class="sidenav">
+                <li><a href="/index">index</a></li>
+            </ul>
+                <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">index</i></a>
+        </div>
+    </nav>
+
     <div class="parallax-container">
-        <div class="parallax"><img src="static/images/bd.jpg">
-            <div class="row">
+        <div class="parallax"><img src="static/images/bd.jpg"></div>
+    </div>
+    <div class="section red accent-2 ">
+        <div class="row container  ">
+        
+             
+            <div class="row ">
                 <div class="col s2"></div>
                 <div class="col s8">
+
+                    <div class="row ">
+                        <div class="col s2"></div>
+                        <form class="col s8 ">
+                            <div class="row">
+                                <div class="input-field col s12 white">
+                                    <textarea id="textarea1" class="materialize-textarea "></textarea>
+                                    <label for="textarea1">Ingrese su query </label>
+                                </div>
+                                <div class="col s5"></div>
+                                <a class="waves-effect waves-light btn-large" onclick="send()">Button</a>
+                                    
+                            </div>
+                        </form>
+                    </div>   
+                    
+                    
                     <br> 
-                    <div class="row">
-                        <div class="col s5"></div>
-                        <div class="col s2">
-                            
-                        </div>
-                    </div>
-                        <table>
+                    
+                        <table class="striped centered responsive-table">
                             <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Item Name</th>
-                                <th>Item Price</th>
+                                <th>ID</th>
+                                <th>Text</th>
+                                <th>Date</th>
+                                <th>Language</th>
                             </tr>
                             </thead>
         
@@ -38,24 +69,28 @@
                                 <td>Alvin</td>
                                 <td>Eclair</td>
                                 <td>$0.87</td>
+                                <td>en</td>
                             </tr>
                             <tr>
                                 <td>Alan</td>
                                 <td>Jellybean</td>
                                 <td>$3.76</td>
+                                <td>en</td>
                             </tr>
                             <tr>
                                 <td>Jonathan</td>
                                 <td>Lollipop</td>
                                 <td>$7.00</td>
+                                <td>en</td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
             </div>
-        
-        </div>
+        </div>    
     </div>
-    
+    <div class="parallax-container">
+        <div class="parallax"><img src="static/images/bd.jpg"></div>
+    </div>
 </body>
 </html>

@@ -185,8 +185,17 @@ def create_message1():
     return 'Created User'
 
 @app.route('/queries')
-def login():
+def queries():
     return render_template('queries.html')
+
+@app.route('/query',methods=['POST'])
+def query():
+    return Response(json.dumps(
+            "user",
+            cls=connector.AlchemyEncoder),
+            mimetype='application/json'
+        )
+
 
 if __name__ == '__main__':
     app.secret_key  = ".."
