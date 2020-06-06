@@ -184,9 +184,9 @@ def create_message1():
     time.sleep(2)
     return 'Created User'
 
-@app.route('/login')
+@app.route('/queries')
 def login():
-    return render_template('login.html')
+    return render_template('queries.html')
 
 if __name__ == '__main__':
     app.secret_key  = ".."
