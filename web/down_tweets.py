@@ -50,11 +50,3 @@ def get_tweet_by_id(id):
     return tweet
 
 lista_tweets= []
-
-q= input("Ingrese la busqueda: ")
-
-get_tweets(q)
-
-t = input("Ingrese id a buscar: ")
-
-get_tweet_by_id(q)

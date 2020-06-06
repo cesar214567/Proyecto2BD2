@@ -9,19 +9,48 @@ function Parallax(){
       });
 }
 
+function clearInner(node) {
+    while (node.hasChildNodes()) {
+      clear(node.firstChild);
+    }
+  }
+  
+  function clear(node) {
+    while (node.hasChildNodes()) {
+      clear(node.firstChild);
+    }
+    node.parentNode.removeChild(node);
+}
+
 function send(){
-    var query = $('#textarea1').val();
-    var query_keyword=query.split(" ");
-    query=JSON.stringify(query_keyword);
-    console.log(query);
+    var elem = document.getElementById('ttweets');
+    clearInner(elem);
+    var query = $('#busqueda').val();
+    document.getElementById("busqueda").value = '';
+    var msg = JSON.stringify({ "ID" : query, });
+  // var query_keyword=query.split(" ");
+  //  query=JSON.stringify(query_keyword);
+  //  console.log(query);
     $.ajax({
         url:'/query',
         type:'POST',
         contentType: 'application/json',
-        data : query,
+        data : msg,
         dataType:'json',
         success: function(response){
-            alert(JSON.stringify(response));
+            console.log(response);
+            var i = 0;
+            $.each(response, function(){            
+            f = '<tr> <td> ID </td>  <td> Text </td> <td> Date </td> <td> Language </td>';
+            f = f.replace( "ID", response[i].ID)
+            f = f.replace( "Text", response[i].text)
+            f = f.replace( "Date", response[i].date)
+            f = f.replace( "Language", response[i].lang)
+            i = i+1;
+            $('#ttweets').append(f);
+            });
+
+            //alert(JSON.stringify(response));
 
         },
         error: function(response){

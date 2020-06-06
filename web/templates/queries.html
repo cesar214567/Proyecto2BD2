@@ -41,11 +41,11 @@
                         <form class="col s8 ">
                             <div class="row">
                                 <div class="input-field col s12 white">
-                                    <textarea id="textarea1" class="materialize-textarea "></textarea>
-                                    <label for="textarea1">Ingrese su query </label>
+                                    <input type = 'text' id="busqueda"></input>
+                                    <label for="busqueda">Ingrese su ID de tweet </label>
                                 </div>
                                 <div class="col s5"></div>
-                                <a class="waves-effect waves-light btn-large" onclick="send()">Button</a>
+                                <a class="waves-effect waves-light btn-large" onclick="send()">Buscar</a>
                                     
                             </div>
                         </form>
@@ -63,26 +63,12 @@
                                 <th>Language</th>
                             </tr>
                             </thead>
-        
-                            <tbody>
-                            <tr>
-                                <td>Alvin</td>
-                                <td>Eclair</td>
-                                <td>$0.87</td>
-                                <td>en</td>
-                            </tr>
-                            <tr>
-                                <td>Alan</td>
-                                <td>Jellybean</td>
-                                <td>$3.76</td>
-                                <td>en</td>
-                            </tr>
-                            <tr>
-                                <td>Jonathan</td>
-                                <td>Lollipop</td>
-                                <td>$7.00</td>
-                                <td>en</td>
-                            </tr>
+                            
+                            <tbody id = "ttweets">
+                            
+
+
+
                             </tbody>
                         </table>
                     </div>

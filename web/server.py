@@ -1,6 +1,7 @@
 from flask import Flask,render_template, request, session, Response, redirect
 from database import connector
 from model import entities
+import down_tweets as tweetg
 import json
 import time
 db = connector.Manager()
@@ -27,7 +28,6 @@ def get_users():
     return Response(json.dumps(data, cls=connector.AlchemyEncoder), mimetype='application/json')
 
 
-##asdfgdsadfdgd
 @app.route('/users', methods = ['POST'])
 def create_user():
     c =  json.loads(request.form['values'])
@@ -190,9 +190,17 @@ def queries():
 
 @app.route('/query',methods=['POST'])
 def query():
+    c = json.loads(request.data)
+    r_tweet = tweetg.get_tweet_by_id(c['ID'])
+    tweet_json =  {}
+    tweet_json['ID'] = r_tweet.id
+    tweet_json['text'] = r_tweet.text
+    tweet_json['date'] = str(r_tweet.created_at)
+    tweet_json['lang'] = r_tweet.lang
+    list_tweets = []
+    list_tweets.append(tweet_json)
     return Response(json.dumps(
-            "user",
-            cls=connector.AlchemyEncoder),
+            list_tweets),
             mimetype='application/json'
         )
 
