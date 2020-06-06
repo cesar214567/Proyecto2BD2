@@ -11,7 +11,7 @@ function Parallax(){
 
 function send(){
     var query = $('#textarea1').val();
-    var query_keyword=query.split("");
+    var query_keyword=query.split(" ");
     query=JSON.stringify(query_keyword);
     console.log(query);
     $.ajax({
