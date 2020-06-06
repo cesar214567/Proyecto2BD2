@@ -15,32 +15,46 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth,wait_on_rate_limit=True)
 
-# Open/Create a file to append data
-lista_tweets= []
-
 db = connector.Manager()
 engine = db.createEngine()
 
-busqueda = input("Ingrese la busqueda: ")
-for tweet in tweepy.Cursor(api.search,q=busqueda,count=100,
+
+def get_tweets(busqueda):
+    for tweet in tweepy.Cursor(api.search,q=busqueda,count=100,
                            lang="en",
                            since="2019-01-01").items(10):  
-     
-    if tweet.retweeted is not None:
-        new_tweet = entities.Tweet( 
-                    id = str(tweet.id),
-                    date = tweet.created_at, #datetime.strptime(str(tweet.created_at), '%y-%m-%d %H:%M:%S'),
-                    text = tweet.text
-                    ) 
-        lista_tweets.append(new_tweet)   
-        
-session = db.getSession(engine)
-for i in lista_tweets:
-    session.add(i)
-session.commit()
+        if tweet.retweeted is not None:
+            new_tweet = entities.Tweet( 
+                        id = str(tweet.id),
+                        date = tweet.created_at,
+                        text = tweet.text
+                        ) 
+            lista_tweets.append(new_tweet)            
+    
+    
+    session = db.getSession(engine)
+    for i in lista_tweets:
+        session.add(i)
+    session.commit()
+  
+    
+    dbResponse = session.query(entities.Tweet)
+    for i in dbResponse:
+        print(i.id + " "+ i.text)
+        print("------------")
+    return 'Downloaded Tweets'
 
+def get_tweet_by_id(id):
+    tweet = api.get_status(id)
+    print(tweet.text)
+    return tweet
 
-dbResponse = session.query(entities.Tweet)
-for i in dbResponse:
-    print(i.date)
-    print("------------")
+lista_tweets= []
+
+q= input("Ingrese la busqueda: ")
+
+get_tweets(q)
+
+t = input("Ingrese id a buscar: ")
+
+get_tweet_by_id(q)
