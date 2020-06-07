@@ -20,9 +20,10 @@ engine = db.createEngine()
 
 
 def get_tweets(busqueda):
+    lista_tweets= []
     for tweet in tweepy.Cursor(api.search,q=busqueda,count=100,
                            lang="en",
-                           since="2019-01-01").items(10):  
+                           since="2019-01-01").items(100):  
         if tweet.retweeted is not None:
             new_tweet = entities.Tweet( 
                         id = str(tweet.id),
@@ -30,23 +31,21 @@ def get_tweets(busqueda):
                         text = tweet.text
                         ) 
             lista_tweets.append(new_tweet)            
-    
-    
-    session = db.getSession(engine)
-    for i in lista_tweets:
-        session.add(i)
-    session.commit()
+  #  session = db.getSession(engine)
+  #  for i in lista_tweets:
+  #      session.add(i)
+  #  session.commit()
   
     
-    dbResponse = session.query(entities.Tweet)
-    for i in dbResponse:
-        print(i.id + " "+ i.text)
-        print("------------")
-    return 'Downloaded Tweets'
+  #  dbResponse = session.query(entities.Tweet)
+  #  for i in dbResponse:
+  #      print(i.id + " "+ i.text)
+  #      print("------------")
+    return lista_tweets
 
 def get_tweet_by_id(id):
     tweet = api.get_status(id)
     print(tweet.text)
     return tweet
 
-lista_tweets= []
+

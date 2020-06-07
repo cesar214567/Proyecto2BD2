@@ -78,5 +78,52 @@
     <div class="parallax-container">
         <div class="parallax"><img src="static/images/bd.jpg"></div>
     </div>
+    <div class="section red accent-2 ">
+        <div class="row container  ">
+            <div class="row ">
+                <div class="col s2"></div>
+                <div class="col s8">
+
+                    <div class="row ">
+                        <div class="col s2"></div>
+                        <form class="col s8 ">
+                            <div class="row">
+                                <div class= "col s3"> </div>
+                                <div class="input-field col s6 white">
+                                    <input type = 'text' id="tema"></input>
+                                    <label for="tema">Ingrese su tema de tweets </label>
+                                </div>
+  
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12 white">
+                                    <input type = 'text' id="query"></input>
+                                    <label for="query">Ingrese su palabra de busqueda </label>
+                                </div>
+                                <div class="col s5"></div>
+                                <a class="waves-effect waves-light btn-large" onclick="invertedIndex()">Buscar</a>  
+                            </div>
+                        </form>
+                    </div>   
+                    <br> 
+                        <table class="striped centered responsive-table">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Text</th>
+                                <th>Date</th>
+                                <th>Language</th>
+                            </tr>
+                            </thead>                     
+                            <tbody id = "ttweets2">
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+        </div>    
+    </div>
+    <div class="parallax-container">
+        <div class="parallax"><img src="static/images/bd.jpg"></div>
+    </div>
 </body>
 </html>

@@ -69,3 +69,48 @@ function send(){
 
 }
 
+function invertedIndex(){
+    var elem = document.getElementById('ttweets2');
+    clearInner(elem);
+    var tema = $('#tema').val();
+    document.getElementById("tema").value = '';
+    var query = $('#query').val();
+    document.getElementById("query").value = '';
+    
+
+    var msg = JSON.stringify({ "tema" : tema, "query" : query});
+    $.ajax({
+        url:'/busqueda',
+        type:'POST',
+        contentType: 'application/json',
+        data : msg,
+        dataType:'json',
+        
+        success: function(response){
+            console.log(response);
+            var i = 0;
+            $.each(response, function(){            
+            f = '<tr> <td> ID </td>  <td> Text </td> <td> Date </td> <td> Language </td>';
+            f = f.replace( "ID", response[i].ID)
+            f = f.replace( "Text", response[i].text)
+            f = f.replace( "Date", response[i].date)
+            f = f.replace( "Language", response[i].lang)
+            i = i+1;
+            $('#ttweets2').append(f);
+            });
+
+            //alert(JSON.stringify(response));
+
+        },
+        error: function(response){
+            alert(JSON.stringify(response));
+            /*if (response['status']==401){
+            document.getElementById('action').src = "/static/images/dislike.png";
+            }else{
+            document.getElementById('action').src = "/static/images/ok.png";
+            var c="http://127.0.0.1:8080/static/chat.html";
+            window.location=c;
+            }*/
+        }
+    });
+}

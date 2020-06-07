@@ -204,6 +204,29 @@ def query():
             mimetype='application/json'
         )
 
+@app.route('/busqueda',methods=['POST'])
+def query():
+    c = json.loads(request.data)
+    tema = c["tema"]
+    query = c["query"]
+    tweets = tweetg.get_tweets(tema)
+
+    #result = get_twets_with_query(tweets,query)
+    list_tweets = []
+    #for id in result:
+        #tweet = tweetg.get_tweet_by_id(id)
+        #tweet_json =  {}
+        #tweet_json['ID'] = r_tweet.id
+        #tweet_json['text'] = r_tweet.text
+        #tweet_json['date'] = str(r_tweet.created_at)
+        #tweet_json['lang'] = r_tweet.lang
+        #list_tweets.append(tweet_json)
+    
+    return Response(json.dumps(
+            list_tweets),
+            mimetype='application/json'
+        )
+
 
 if __name__ == '__main__':
     app.secret_key  = ".."
