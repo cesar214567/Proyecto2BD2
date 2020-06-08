@@ -18,8 +18,7 @@ def filter_file(file, stopwords):
 
     stemmer = Stemmer.Stemmer('spanish')
 
-    with open(file) as f:
-        tweet = [word.lower() for line in f for word in line.split()]
+    tweet = [word.lower() for word in file.split()]
 
     #Filtramos los simbolos
     tweet = [filter_symbols(word) for word in tweet]
@@ -35,15 +34,15 @@ def writeBlock(block, id):
         for tu in block:
             mi.write(str(tu[0]) + ' ' + str(tu[1]) + ' ' + str(tu[2]) + '\n')
 
-def buildTempFiles(tweets):
+def buildTempFiles(tweets, stopwords):
     size = 0
     block = []
     nblock = 0
     for i in range(len(tweets)):
-        tweet_filtrado = filter_file(tweets[i], stopwords)
+        tweet_filtrado = filter_file(tweets[i][1], stopwords)
         tweet_filtrado_unique = list(set(tweet_filtrado))
         for word in tweet_filtrado_unique:
-            block.append((word, i, tweet_filtrado.count(word)))
+            block.append((word, tweets[i][0], tweet_filtrado.count(word)))
             size += 1
             if (size == BLOCKSIZE):
                 writeBlock(sorted(block), nblock)
@@ -92,7 +91,11 @@ def writeIndex(f):
     os.remove("temp0.txt")
 
 def buildIndex(tweets):
-    nblock = buildTempFiles(tweets)
+    with open("stopwords.txt") as sw:
+        stopwords = json.load(sw)
+    stopwords = stopwords["words"]
+
+    nblock = buildTempFiles(tweets,stopwords)
     for i in range(math.ceil(math.log2(nblock))):
         for j in range(0,nblock-1,2):
             combine(j,j+1,j//2)
@@ -101,13 +104,16 @@ def buildIndex(tweets):
         nblock = math.ceil(nblock/2)
     writeIndex("temp0.txt")
 
-tweets = ['t1.txt','t2.txt','t3.txt','t4.txt']
 
-with open("stopwords.txt") as sw:
-        stopwords = json.load(sw)
+# tweets = [[23,"Las cosas buenas toman tiempo. Llora litros, sonríe a mares. El sabio crea, los demás copian. "
+#               "Los que tiene prisa, tropiezan. No importa lo que decidas. Lo que importa es que te haga feliz."],
+#           [56,"Habla menos y observa más. Toma este día para sonreír. Quiérete ¡Es gratis! Que tu fe sea mayor "
+#               "que tus problemas. Sé feliz, no aceptes menos."],
+#           [34,"Es bueno ser bueno para alguien. La medida del amor es amar sin medida. Las cosas buenas toman tiempo. "
+#               "Llora litros, sonríe a mares."],
+#           [29,"La gratitud es la memoria del corazón. Haz algo que valga la pena, las oportunidades no vuelven. "
+#               "No porque el cielo esté nublado las estrellas murieron."]]
 
-stopwords = stopwords["words"]
-
-buildIndex(tweets)
+#buildIndex(tweets)
 
 
