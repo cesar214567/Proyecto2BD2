@@ -7,7 +7,7 @@ import math
 
 matrixPath = "invertedIndex.txt"
 matrix = collections.defaultdict(dict)
-N = 4 # numero de documentos
+N = 100 # numero de tweets
 
 def filter_symbols(word):
     extras = [',','.',':','\'','"','-','¡','¿','#','?','!','(',')','»','«',';']
