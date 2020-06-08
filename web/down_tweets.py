@@ -22,7 +22,7 @@ engine = db.createEngine()
 def get_tweets(busqueda):
     lista_tweets= []
     for tweet in tweepy.Cursor(api.search,q=busqueda,count=100,
-                           lang="en",
+                           lang="es",
                            since="2019-01-01").items(100):  
         if tweet.retweeted is not None:
             new_tweet = entities.Tweet( 

@@ -2,17 +2,25 @@
 
 import json
 import os
+import re
 import math
 import Stemmer
 
-BLOCKSIZE = 10
+BLOCKSIZE = 100
 
 def filter_symbols(word):
-    extras = [',','.',':','\'','"','-','¡','¿','#','?','!','(',')','»','«',';']
-
+    extras = [',','.',':','\'','"','-','¡','¿','#','?','!','(',')','»','«',';','%','{','}','[',']','$','&','/','=',
+              '…','+','-','*','_','^','`','|','°','”','✅','‘','“','⁦','—','⏩','⚠️','✌']
+    emoji_pattern = re.compile("["
+                               u"\U0001F600-\U0001F64F"  # emoticons
+                               u"\U0001F300-\U0001F5FF"  # symbols & pictographs
+                               u"\U0001F680-\U0001F6FF"  # transport & map symbols
+                               u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
+                               "]+", flags=re.UNICODE)
     for e in extras:
         word = word.replace(e,'')
-    return word
+
+    return emoji_pattern.sub(r'', word)
 
 def filter_file(file, stopwords):
 
@@ -22,6 +30,10 @@ def filter_file(file, stopwords):
 
     #Filtramos los simbolos
     tweet = [filter_symbols(word) for word in tweet]
+
+    #Filtramos los websites
+    tweet = [word for word in tweet if not word.startswith("http") and not word.startswith("@")
+             and len(word)]
 
     #Filtramos los stopwords
     tweet = [word for word in tweet if word not in stopwords]
@@ -34,16 +46,15 @@ def writeBlock(block, id):
         for tu in block:
             mi.write(str(tu[0]) + ' ' + str(tu[1]) + ' ' + str(tu[2]) + '\n')
 
+
 def buildTempFiles(tweets, stopwords):
     size = 0
     block = []
     nblock = 0
     for i in range(len(tweets)):
-        #tweet_filtrado = filter_file(tweets[i][1], stopwords)
         tweet_filtrado = filter_file(tweets[i].text, stopwords)
         tweet_filtrado_unique = list(set(tweet_filtrado))
         for word in tweet_filtrado_unique:
-            #block.append((word, tweets[i][0], tweet_filtrado.count(word)))
             block.append((word,tweets[i].id,tweet_filtrado.count(word)))
             size += 1
             if (size == BLOCKSIZE):
@@ -105,17 +116,4 @@ def buildIndex(tweets):
             os.rename("temp" + str(nblock-1) + ".txt", "temp" + str((nblock-1)//2) + ".txt")
         nblock = math.ceil(nblock/2)
     writeIndex("temp0.txt")
-
-
-# tweets = [[23,"Las cosas buenas toman tiempo. Llora litros, sonríe a mares. El sabio crea, los demás copian. "
-#               "Los que tiene prisa, tropiezan. No importa lo que decidas. Lo que importa es que te haga feliz."],
-#           [56,"Habla menos y observa más. Toma este día para sonreír. Quiérete ¡Es gratis! Que tu fe sea mayor "
-#               "que tus problemas. Sé feliz, no aceptes menos."],
-#           [34,"Es bueno ser bueno para alguien. La medida del amor es amar sin medida. Las cosas buenas toman tiempo. "
-#               "Llora litros, sonríe a mares."],
-#           [29,"La gratitud es la memoria del corazón. Haz algo que valga la pena, las oportunidades no vuelven. "
-#               "No porque el cielo esté nublado las estrellas murieron."]]
-
-#buildIndex(tweets)
-
 

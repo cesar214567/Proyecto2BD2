@@ -82,4 +82,4 @@ if __name__ == '__main__':
     stopwords = stopwords["words"]
 
     query = input()
-    executeQuery(query,2)
+    executeQuery(query,10)
