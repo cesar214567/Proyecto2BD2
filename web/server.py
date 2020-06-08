@@ -61,12 +61,7 @@ def create():
     c = json.loads(request.data)
     tema = c["tema"]
     tweets = tweetg.get_tweets(tema)
-    diccionario_tweets = []
-    for t in tweets:
-        diccionario = {}
-        diccionario[t.id] = t.text
-        diccionario_tweets.append(diccionario)
-    #create_index(diccionario_tweets)
+    #create_index(tweets)
     return Response()
 
 if __name__ == '__main__':
