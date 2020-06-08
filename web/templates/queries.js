@@ -119,7 +119,8 @@ function invertedIndex(){
         success: function(response){
             console.log(response);
             var i = 0;
-            $.each(response, function(){            
+            $.each(response, function(){  
+                console.log(response)          
                 f = '<tr> <td> ID </td>  <td> Text </td> <td> Date </td> <td> Language </td>';
                 f = f.replace( "ID", response[i].ID)
                 f = f.replace( "Text", response[i].text)

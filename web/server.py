@@ -3,6 +3,7 @@ from database import connector
 from model import entities
 import down_tweets as tweetg
 import filters as filters
+import retrieve as retrieve
 import json
 import time
 db = connector.Manager()
@@ -42,17 +43,17 @@ def query():
 def busqueda():
     c = json.loads(request.data)
     query = c["query"]
-    #result = get_twets_with_query(query)
+    result = retrieve.executeQuery(query,10)
+
     list_tweets = []
-    #for id in result:
-        #tweet = tweetg.get_tweet_by_id(id)
-        #tweet_json =  {}
-        #tweet_json['ID'] = r_tweet.id
-        #tweet_json['text'] = r_tweet.text
-        #tweet_json['date'] = str(r_tweet.created_at)
-        #tweet_json['lang'] = r_tweet.lang
-        #list_tweets.append(tweet_json)
-    
+    for id in result:
+        tweet = tweetg.get_tweet_by_id(id[1])
+        tweet_json =  {}
+        tweet_json['ID'] = tweet.id
+        tweet_json['text'] = tweet.text
+        tweet_json['date'] = str(tweet.created_at)
+        tweet_json['lang'] = tweet.lang
+        list_tweets.append(tweet_json)
     return Response(json.dumps(
             list_tweets),
             mimetype='application/json'
@@ -62,6 +63,7 @@ def create():
     c = json.loads(request.data)
     tema = c["tema"]
     tweets = tweetg.get_tweets(tema)
+    print("el tamano del array mandado es "+str(len(tweets)))
     filters.buildIndex(tweets)
     res = {}
     res["status"] = 200

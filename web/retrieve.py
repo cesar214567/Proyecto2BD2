@@ -71,15 +71,15 @@ def cosineScore(query, k):
 
 
 def executeQuery(query,k):
-    tokens = filter_query(query, stopwords)
-    results = cosineScore(tokens,k)
-    for i in results:
-        print(i[1])
-
-if __name__ == '__main__':
     with open("stopwords.txt") as sw:
         stopwords = json.load(sw)
     stopwords = stopwords["words"]
+    tokens = filter_query(query, stopwords)
+    results = cosineScore(tokens,k)
+    return results
 
-    query = input()
-    executeQuery(query,10)
+#if __name__ == '__main__':
+    
+
+#    query = input()
+#    executeQuery(query,10)
