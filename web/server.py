@@ -62,7 +62,11 @@ def create():
     tema = c["tema"]
     tweets = tweetg.get_tweets(tema)
     #create_index(tweets)
-    return Response()
+    res = {}
+    res["status"] = 200
+    return Response(json.dumps(
+        res), mimetype ='application/json'
+    )
 
 if __name__ == '__main__':
     app.secret_key  = ".."
