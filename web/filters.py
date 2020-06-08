@@ -39,10 +39,12 @@ def buildTempFiles(tweets, stopwords):
     block = []
     nblock = 0
     for i in range(len(tweets)):
-        tweet_filtrado = filter_file(tweets[i][1], stopwords)
+        #tweet_filtrado = filter_file(tweets[i][1], stopwords)
+        tweet_filtrado = filter_file(tweets[i].text, stopwords)
         tweet_filtrado_unique = list(set(tweet_filtrado))
         for word in tweet_filtrado_unique:
-            block.append((word, tweets[i][0], tweet_filtrado.count(word)))
+            #block.append((word, tweets[i][0], tweet_filtrado.count(word)))
+            block.append((word,tweets[i].id,tweet_filtrado.count(word)))
             size += 1
             if (size == BLOCKSIZE):
                 writeBlock(sorted(block), nblock)

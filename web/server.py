@@ -2,6 +2,7 @@ from flask import Flask,render_template, request, session, Response, redirect
 from database import connector
 from model import entities
 import down_tweets as tweetg
+import filters as filters
 import json
 import time
 db = connector.Manager()
@@ -61,7 +62,7 @@ def create():
     c = json.loads(request.data)
     tema = c["tema"]
     tweets = tweetg.get_tweets(tema)
-    #create_index(tweets)
+    filters.buildIndex(tweets)
     res = {}
     res["status"] = 200
     return Response(json.dumps(
