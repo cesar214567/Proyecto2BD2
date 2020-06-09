@@ -68,7 +68,7 @@ def buildTempFiles(tweets, stopwords):
     return nblock
 
 def combine(id1, id2, outfile):
-    with open("temp" + str(id1) + str(id2) + ".txt", "w") as mi:
+    with open("temp" + str(id1) + "_" + str(id2) + ".txt", "w") as mi:
         with open("temp" + str(id1) + ".txt") as f1, open("temp" + str(id2) + ".txt") as f2:
             l1 = f1.readline()
             l2 = f2.readline()
@@ -87,7 +87,7 @@ def combine(id1, id2, outfile):
                 l2 = f2.readline()
     os.remove("temp" + str(id1) + ".txt")
     os.remove("temp" + str(id2) + ".txt")
-    os.rename("temp" + str(id1) + str(id2) + ".txt", "temp" + str(outfile) + ".txt")
+    os.rename("temp" + str(id1) + "_" + str(id2) + ".txt", "temp" + str(outfile) + ".txt")
 
 
 def writeIndex(f):
