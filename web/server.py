@@ -28,7 +28,7 @@ def query():
     c = json.loads(request.data)
     r_tweet = tweetg.get_tweet_by_id(c['ID'])
     tweet_json =  {}
-    tweet_json['ID'] = r_tweet.id
+    tweet_json['ID'] = str(r_tweet.id)
     tweet_json['text'] = r_tweet.text
     tweet_json['date'] = str(r_tweet.created_at)
     tweet_json['lang'] = r_tweet.lang
@@ -49,7 +49,7 @@ def busqueda():
     for id in result:
         tweet = tweetg.get_tweet_by_id(id[1])
         tweet_json =  {}
-        tweet_json['ID'] = tweet.id
+        tweet_json['ID'] = str(tweet.id)
         tweet_json['text'] = tweet.text
         tweet_json['date'] = str(tweet.created_at)
         tweet_json['lang'] = tweet.lang
