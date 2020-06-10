@@ -62,7 +62,10 @@ def busqueda():
 def create():
     c = json.loads(request.data)
     tema = c["tema"]
-    tweets = tweetg.get_tweets(tema)
+    N_tweets= c["n_tweets"]
+    print(c)
+    print(N_tweets)
+    tweets = tweetg.get_tweets(tema,int(N_tweets))
     print("el tamano del array mandado es "+str(len(tweets)))
     filters.buildIndex(tweets)
     res = {}

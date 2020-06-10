@@ -72,8 +72,9 @@ function createIndex(){
     
     var tema = $('#tema').val();
     document.getElementById("tema").value = '';
-
-    var msg = JSON.stringify({ "tema" : tema });
+    var n_tweets=$('#N_Tweets').val();
+    document.getElementById("N_Tweets").value = '';
+    var msg = JSON.stringify({ "n_tweets" : n_tweets, "tema" : tema  });
     $.ajax({
         url:'/create',
         type:'POST',
