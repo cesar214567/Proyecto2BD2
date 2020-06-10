@@ -4,8 +4,9 @@ import json
 import collections
 import Stemmer
 import math
+import os
 
-matrixPath = "invertedIndex.txt"
+Blocks = 9
 matrix = collections.defaultdict(dict)
 N = 100 # numero de tweets
 
@@ -28,16 +29,52 @@ def filter_query(query, stopwords):
 
     return list(stemmer.stemWords(query))
 
-def retrieve(query):
+def combine(id1, id2, query):
+    with open(str(id1) + "_" + str(id2) + ".txt", "w") as mi:
+        with open(str(id1)) as f1, open(str(id2) + ".txt") as f2:
+            l1 = f1.readline()
+            l2 = f2.readline()
+            while l1 and l2:
+                if(l1<l2):
+                    if l1.split()[0] in query:
+                        mi.write(l1)
+                    l1 = f1.readline()
+                else:
+                    if l2.split()[0] in query:
+                        mi.write(l2)
+                    l2 = f2.readline()
+            while l1:
+                if l1.split()[0] in query:
+                    mi.write(l1)
+                l1 = f1.readline()
+            while l2:
+                if l2.split()[0] in query:
+                    mi.write(l2)
+                l2 = f2.readline()
+    os.rename(str(id1) + "_" + str(id2) + ".txt", str(id1))
+
+
+def writeIndex(f):
     tweets = []
-    with open(matrixPath) as f:
-        for line in f:
-            line = line.split()
-            for i in range(1, len(line), 2):
-                if line[0] in query:
-                    tweets.append(int(line[i]))
-                    matrix[line[0]][int(line[i])] = int(line[i+1])
+    with open(f) as f1:
+        l1 = f1.readline().split()
+        while l1:
+            word = l1[0]
+            while l1 and word==l1[0]:
+                tweets.append(int(l1[1]))
+                matrix[word][int(l1[1])] = int(l1[2])
+                l1 = f1.readline().split()
+    os.remove(f)
     return list(set(tweets))
+
+
+def retrieve(query):
+    f = open("temp.txt", "w+")
+    f.close()
+    for i in range(Blocks):
+        combine("temp.txt",i,query)
+    return writeIndex("temp.txt")
+
 
 def cosineScore(query, k):
     unique_keys = list(set(query))
@@ -47,7 +84,7 @@ def cosineScore(query, k):
         df[i] = len(matrix[i])
     q = {}
     for i in unique_keys:
-        q[i] = math.log10(1+query.count(i))*math.log10(N)
+        q[i] = math.log10(1+query.count(i))*math.log10(N/df[i])
     for i in matrix.keys():
         for j in matrix[i].keys():
             matrix[i][j] = math.log10(1+matrix[i][j]) * math.log10(N/df[i])
@@ -78,8 +115,7 @@ def executeQuery(query,k):
     results = cosineScore(tokens,k)
     return results
 
-#if __name__ == '__main__':
-    
+if __name__ == '__main__':
 
-#    query = input()
-#    executeQuery(query,10)
+   query = input()
+   executeQuery(query,10)
