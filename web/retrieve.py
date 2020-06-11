@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 
 import json
+import filters as filters
 import collections
 import Stemmer
 import math
 import os
 
-Blocks = 9
 matrix = collections.defaultdict(dict)
-N = 100 # numero de tweets
 
 def filter_symbols(word):
     extras = [',','.',':','\'','"','-','¡','¿','#','?','!','(',')','»','«',';']
@@ -71,7 +70,7 @@ def writeIndex(f):
 def retrieve(query):
     f = open("temp.txt", "w+")
     f.close()
-    for i in range(Blocks):
+    for i in range(filters.Blocks):
         combine("temp.txt",i,query)
     return writeIndex("temp.txt")
 
@@ -84,10 +83,10 @@ def cosineScore(query, k):
         df[i] = len(matrix[i])
     q = {}
     for i in unique_keys:
-        q[i] = math.log10(1+query.count(i))*math.log10(N/df[i])
+        q[i] = math.log10(1+query.count(i))*math.log10(filters.N/df[i])
     for i in matrix.keys():
         for j in matrix[i].keys():
-            matrix[i][j] = math.log10(1+matrix[i][j]) * math.log10(N/df[i])
+            matrix[i][j] = math.log10(1+matrix[i][j]) * math.log10(filters.N/df[i])
     score = []
     qacum = sum(q[i]*q[i] for i in q.keys())
     for i in tweets:

@@ -5,9 +5,10 @@ import sys
 import emoji
 import Stemmer
 
-BLOCKSIZE = 1000
+BLOCKSIZE = 0
 
 Blocks = 0
+N = 0
 
 def filter_symbols(word):
     extras = [',','.',':','\'','"','-','¡','¿','#','?','!','(',')','»','«',';','%','{','}','[',']','$','&','/','=',
@@ -50,7 +51,7 @@ def buildBlocks(tweets, stopwords):
     if Blocks:
         with open(str(Blocks-1) + ".txt") as mi:
             l1 = mi.readline().split()
-            block.append({l1[0],int(l1[1]),int(l1[2])})
+            block.append((l1[0],int(l1[1]),int(l1[2])))
         nblock = len(block)-1
     for i in range(len(tweets)):
         tweet_filtrado = filter_file(tweets[i].text, stopwords)
@@ -76,10 +77,11 @@ def addTweets(tweets):
     stopwords = stopwords["words"]
 
     Blocks += buildBlocks(tweets,stopwords)
-    return Blocks
 
-def initBlocks(tweets):
+def initBlocks(tweets, Blocksize, n):
     global Blocks
-    Blocks = 0
-    addTweets(tweets)
-    return Blocks
+    global BLOCKSIZE
+    global N
+    N = n
+    BLOCKSIZE = Blocksize
+    Blocks = addTweets(tweets)

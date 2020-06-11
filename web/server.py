@@ -81,7 +81,7 @@ def create():
     if created_block == 0:
         filters.addTweets(tweets)
     else:
-        filters.initBlocks(tweets)
+        filters.initBlocks(tweets,1000)
         created_block = 1
     res = {}
     res["status"] = 200
