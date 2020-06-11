@@ -71,12 +71,12 @@ def buildBlocks(tweets, stopwords):
 
 def addTweets(tweets):
     global Blocks
-    with open("stopwords.txt") as sw:
+    with open("templates/stopwords.txt") as sw:
         stopwords = json.load(sw)
     stopwords = stopwords["words"]
 
     Blocks += buildBlocks(tweets,stopwords)
-    return Blocks 
+    return Blocks
 
 def initBlocks(tweets):
     global Blocks

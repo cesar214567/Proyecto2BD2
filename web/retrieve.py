@@ -108,7 +108,7 @@ def cosineScore(query, k):
 
 
 def executeQuery(query,k):
-    with open("stopwords.txt") as sw:
+    with open("templates/stopwords.txt") as sw:
         stopwords = json.load(sw)
     stopwords = stopwords["words"]
     tokens = filter_query(query, stopwords)

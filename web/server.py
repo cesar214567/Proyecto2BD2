@@ -6,6 +6,8 @@ import filters as filters
 import retrieve as retrieve
 import json
 import time
+import os,sys
+created_block = 0
 db = connector.Manager()
 engine = db.createEngine()
 
@@ -58,8 +60,17 @@ def busqueda():
             list_tweets),
             mimetype='application/json'
         )
+
+
+@app.route('/eliminar',methods=['DELETE'])
+def eliminar():
+    global created_block
+    sys.bashcomand('rm *.txt')
+    created_block = 0
+
 @app.route('/create',methods=['POST'])
 def create():
+    global created_block
     c = json.loads(request.data)
     tema = c["tema"]
     N_tweets= c["n_tweets"]
@@ -67,7 +78,11 @@ def create():
     print(N_tweets)
     tweets = tweetg.get_tweets(tema,int(N_tweets))
     print("el tamano del array mandado es "+str(len(tweets)))
-    filters.buildIndex(tweets)
+    if created_block == 0:
+        filters.addTweets(tweets)
+    else:
+        filters.initBlocks(tweets)
+        created_block = 1
     res = {}
     res["status"] = 200
     return Response(json.dumps(
