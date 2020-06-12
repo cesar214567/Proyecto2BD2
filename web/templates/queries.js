@@ -131,8 +131,10 @@ function invertedIndex(){
     var query = $('#query').val();
     document.getElementById("query").value = '';
     
+    var query = $('#K').val();
+    document.getElementById("K").value = '';
 
-    var msg = JSON.stringify({ "query" : query ,});
+    var msg = JSON.stringify({ "query" : query , "K":K});
     $.ajax({
         url:'/busqueda',
         type:'POST',

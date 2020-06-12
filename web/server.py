@@ -45,6 +45,7 @@ def query():
 def busqueda():
     c = json.loads(request.data)
     query = c["query"]
+    K=c["K"]
     result = retrieve.executeQuery(query,10)
 
     list_tweets = []
