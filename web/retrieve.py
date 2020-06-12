@@ -28,6 +28,7 @@ def filter_query(query, stopwords):
 
     return list(stemmer.stemWords(query))
 
+# Mergesort a nivel de memoria secundaria
 def combine(id1, id2, query):
     with open(str(id1) + "_" + str(id2) + ".txt", "w") as mi:
         with open(str(id1)) as f1, open(str(id2) + ".txt") as f2:
@@ -79,6 +80,7 @@ def retrieve(query):
 def cosineScore(query, k):
     unique_keys = list(set(query))
     tweets = retrieve(unique_keys)
+    # Calcular tf y el df
     df = {}
     for i in matrix.keys():
         df[i] = len(matrix[i])
@@ -90,6 +92,7 @@ def cosineScore(query, k):
         for j in matrix[i].keys():
             if i in df.keys() and j in matrix[i].keys():
                 matrix[i][j] = math.log10(1+matrix[i][j]) * math.log10(filters.N/df[i])
+    # Calcular score coseno
     score = []
     qacum = sum(q[i]*q[i] for i in q.keys())
     for i in tweets:
@@ -118,8 +121,3 @@ def executeQuery(query,k):
     for i in results:
         print(i)
     return results
-
-if __name__ == '__main__':
-
-   query = input()
-   executeQuery(query,10)
