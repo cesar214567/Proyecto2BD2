@@ -87,3 +87,7 @@ Cada opcion esta llamando a una ruta diferente en el servidor:
 - POST: /busqueda esta escuchando a las peticiones por una query de lenguaje natural 
 - DELETE: /eliminar esta escuchando la peticion de borrado del indice en el servidor
 - POST: /create esta escuchando a la peticion de añadir tweets. 
+
+## Video de pruebas:
+
+[Link de video](pruebasIndice.zip)
