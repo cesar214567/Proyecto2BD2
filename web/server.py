@@ -7,6 +7,7 @@ import retrieve as retrieve
 import json
 import time
 import os,sys
+from datetime import datetime
 created_block = 0
 db = connector.Manager()
 engine = db.createEngine()
@@ -43,12 +44,15 @@ def query():
 
 @app.route('/busqueda',methods=['POST'])
 def busqueda():
+    start=datetime.now()
     c = json.loads(request.data)
     query = c["query"]
     K=c["K"]
     result = retrieve.executeQuery(query,int(K))
-
+    time= (datetime.now()-start)
+    print(time)
     list_tweets = []
+    
     for id in result:
         tweet = tweetg.get_tweet_by_id(id[1])
         tweet_json =  {}
@@ -74,6 +78,7 @@ def eliminar():
 
 @app.route('/create',methods=['POST'])
 def create():
+    start=datetime.now()    
     global created_block
     c = json.loads(request.data)
     tema = c["tema"]
@@ -82,6 +87,9 @@ def create():
     print(N_tweets)
     tweets = tweetg.get_tweets(tema,int(N_tweets))
     print("el tamano del array mandado es "+str(len(tweets)))
+    time =(datetime.now()-start)
+    print(time)
+    start=datetime.now()
     if created_block:
         filters.addTweets(tweets)
     else:
@@ -89,12 +97,14 @@ def create():
         created_block = 1
     res = {}
     res["status"] = 200
+    time =(datetime.now()-start)
+    print(time)
     return Response(json.dumps(
         res), mimetype ='application/json'
     )
 
 if __name__ == '__main__':
     app.secret_key  = ".."
-    app.run(port=8080, threaded=True, host=('127.0.0.1'))
+    app.run(port=8081, threaded=True, host=('127.0.0.1'))
 
 
