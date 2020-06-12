@@ -55,7 +55,7 @@ def buildBlocks(tweets, stopwords):
             l1 = mi.readline()
             while l1:
                 l1 = l1.split()
-                block.append((l1[0],l1[1],int(l1[2])))
+                block.append((l1[0],str(l1[1]),int(l1[2])))
                 l1 = mi.readline()
     for i in range(len(tweets)):
         tweet_filtrado = filter_file(tweets[i].text, stopwords)
