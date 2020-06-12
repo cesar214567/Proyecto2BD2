@@ -68,13 +68,36 @@ function send(){
 
 
 }
+
+
+function eliminar(){
+    $( "#desaparece").show();
+    $.ajax({
+        url:'/eliminar',
+        type:'DELETE',
+        contentType: 'application/json',
+        dataType:'json',
+        
+        success: function(response){
+            alert("Se han eliminado todos los bloques");
+        },
+        error: function(response){
+            alert(JSON.stringify(response));
+        }
+    });
+}
+
 function createIndex(){
     
     var tema = $('#tema').val();
     document.getElementById("tema").value = '';
     var n_tweets=$('#N_Tweets').val();
     document.getElementById("N_Tweets").value = '';
-    var msg = JSON.stringify({ "n_tweets" : n_tweets, "tema" : tema  });
+    var size_block = $('#blocksize').val();
+    document.getElementById("blocksize").value = '';
+    document.getElementById("desaparece").value = ''; 
+    $( "#desaparece" ).hide();
+    var msg = JSON.stringify({ "n_tweets" : n_tweets, "tema" : tema , "blocksize": size_block });
     $.ajax({
         url:'/create',
         type:'POST',

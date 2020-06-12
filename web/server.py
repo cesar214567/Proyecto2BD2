@@ -65,8 +65,11 @@ def busqueda():
 @app.route('/eliminar',methods=['DELETE'])
 def eliminar():
     global created_block
-    sys.bashcomand('rm *.txt')
+    os.system('rm *.txt')
     created_block = 0
+    return  Response(json.dumps(
+        { "Success" : 200 }), mimetype ='application/json'
+    )
 
 @app.route('/create',methods=['POST'])
 def create():
@@ -78,10 +81,10 @@ def create():
     print(N_tweets)
     tweets = tweetg.get_tweets(tema,int(N_tweets))
     print("el tamano del array mandado es "+str(len(tweets)))
-    if created_block == 0:
+    if created_block:
         filters.addTweets(tweets)
     else:
-        filters.initBlocks(tweets,1000)
+        filters.initBlocks(tweets,int(c["blocksize"]))
         created_block = 1
     res = {}
     res["status"] = 200

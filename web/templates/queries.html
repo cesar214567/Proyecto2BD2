@@ -17,25 +17,20 @@
             <ul class="right hide-on-med-and-down">
                 <li><a href="/">index</a></li>
             </ul>
-    
             <ul id="nav-mobile" class="sidenav">
                 <li><a href="/">index</a></li>
             </ul>
                 <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">index</i></a>
         </div>
     </nav>
-
     <div class="parallax-container">
         <div class="parallax"><img src="static/images/bd.jpg"></div>
     </div>
     <div class="section orange ">
-        <div class="row container  ">
-        
-             
+        <div class="row container ">
             <div class="row ">
                 <div class="col s2"></div>
                 <div class="col s8">
-
                     <div class="row ">
                         <div class="col s2"></div>
                         <form class="col s8 ">
@@ -45,15 +40,11 @@
                                     <label for="busqueda">Ingrese su ID de tweet </label>
                                 </div>
                                 <div class="col s5"></div>
-                                <a class="waves-effect waves-light btn-large" onclick="send()">Buscar</a>
-                                    
+                                <a class="waves-effect waves-light btn-large" onclick="send()">Buscar</a> 
                             </div>
                         </form>
                     </div>   
-                    
-                    
                     <br> 
-                    
                         <table class="striped centered responsive-table">
                             <thead>
                             <tr>
@@ -63,12 +54,7 @@
                                 <th>Language</th>
                             </tr>
                             </thead>
-                            
                             <tbody id = "ttweets">
-                            
-
-
-
                             </tbody>
                         </table>
                     </div>
@@ -87,6 +73,15 @@
                     <div class="row ">
                         <div class="col s2"></div>
                         <form class="col s8 ">
+                            <div class="row" id= "desaparece">
+                                <div class = "col s4"></div>
+                                <div class="col s3">
+                                    <div class="input-field  white">
+                                        <input type = 'text' id="blocksize"></input>
+                                        <label for="blocksize">Block Size </label>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col s8">
                                     <div class="input-field  white">
@@ -97,14 +92,15 @@
                                 <div class="col s3 ">
                                     <div class="input-field white ">
                                         <input type = 'text' id="N_Tweets"></input>
-                                        <label for="tema">Nº de tweets  </label>
+                                        <label for="N_Tweets">Nº de tweets  </label>
                                     </div>
-                                    
                                 </div>
                                 <div class="col s1"></div>
                                 <br>
-                                <div class="col s4"></div>
-                                <a class="waves-effect waves-light btn-large col s4" onclick="createIndex()">Insertar  </a>
+                                <div class="col s2"></div>
+                                <a class="waves-effect waves-light btn-large col s3" onclick="createIndex()">Insertar  </a>
+                                <div class="col s1"></div>
+                                <a class="waves-effect waves-light btn-large col s3" onclick="eliminar()"> Eliminar  </a>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 white">
