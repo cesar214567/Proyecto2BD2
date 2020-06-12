@@ -94,8 +94,8 @@ Cada opcion esta llamando a una ruta diferente en el servidor:
 
 ### Imágenes:
 
-[Interfaz de búsqueda por id](web/imagenes/Interfaz_busqueda_id.png)
-[Bloques creados](web/imagenes/bloques_creados.png)
-[Interfaz para crear bloques](web/imagenes/interfaz_crear_bloques.png)
-[Interfaz para las queries](web/imagenes/interfaz_queries.png)
-[Resultados de las queries](web/imagenes/query_ejecutada.png)
+[Interfaz de búsqueda por id](web/imagenes/Interfaz_busqueda_id.png) \
+[Bloques creados](web/imagenes/bloques_creados.png) \
+[Interfaz para crear bloques](web/imagenes/interfaz_crear_bloques.png) \
+[Interfaz para las queries](web/imagenes/interfaz_queries.png) \
+[Resultados de las queries](web/imagenes/query_ejecutada.png) \
