@@ -88,6 +88,14 @@ Cada opcion esta llamando a una ruta diferente en el servidor:
 - DELETE: /eliminar esta escuchando la peticion de borrado del indice en el servidor
 - POST: /create esta escuchando a la peticion de añadir tweets. 
 
-## Video de pruebas:
+## Resultados:
 
-[Link de video](pruebasIndice.zip)
+[Video](pruebasIndice.zip)
+
+### Imágenes:
+
+[Interfaz de búsqueda por id](web/imagenes/Interfaz_busqueda_id.png)
+[Bloques creados](web/imagenes/bloques_creados.png)
+[Interfaz para crear bloques](web/imagenes/interfaz_crear_bloques.png)
+[Interfaz para las queries](web/imagenes/interfaz_queries.png)
+[Resultados de las queries](web/imagenes/query_ejecutada.png)
