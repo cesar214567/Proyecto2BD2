@@ -13,7 +13,7 @@
 </head>
 <body onload="Parallax()">
     <nav class="light-blue lighten-1" role="navigation">
-        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">EPIC SEARCH</a>
+        <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">EPIC SEARCH</a>
             <ul class="right hide-on-med-and-down">
                 <li><a href="/">index</a></li>
             </ul>
@@ -103,10 +103,16 @@
                                 <a class="waves-effect waves-light btn-large col s3" onclick="eliminar()"> Eliminar  </a>
                             </div>
                             <div class="row">
-                                <div class="input-field col s12 white">
+                                <div class="input-field col s8 white">
                                     <input type = 'text' id="query"></input>
                                     <label for="query">Ingrese su palabra de busqueda </label>
                                 </div>
+                                <div class="col s1"></div> 
+                                <div class="input-field col s3 white">
+                                    <input type = 'text' id="K"></input>
+                                    <label for="K">Ingrese K tweets  </label>
+                                </div>
+
                                 <div class="col s5"></div>
                                 <a class="waves-effect waves-light btn-large" onclick="invertedIndex()">Buscar</a>  
                             </div>
