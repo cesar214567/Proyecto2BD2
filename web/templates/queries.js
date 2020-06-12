@@ -96,7 +96,6 @@ function createIndex(){
     var size_block = $('#blocksize').val();
     document.getElementById("blocksize").value = '';
     document.getElementById("desaparece").value = ''; 
-    $( "#desaparece" ).hide();
     var msg = JSON.stringify({ "n_tweets" : n_tweets, "tema" : tema , "blocksize": size_block });
     $.ajax({
         url:'/create',
@@ -107,7 +106,7 @@ function createIndex(){
         
         success: function(response){
             alert("Indice creado con el tema " + tema + " status: " + response.status);
-            
+            $( "#desaparece" ).hide();
             
             //alert(JSON.stringify(response));
         },
