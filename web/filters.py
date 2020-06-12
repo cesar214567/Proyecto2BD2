@@ -49,14 +49,19 @@ def buildBlocks(tweets, stopwords):
     block = []
     nblock = Blocks
     if Blocks:
+        nblock = Blocks-1
+        print(Blocks)
         with open(str(Blocks-1) + ".txt") as mi:
-            l1 = mi.readline().split()
-            block.append((l1[0],int(l1[1]),int(l1[2])))   
+            l1 = mi.readline()
+            while l1:
+                l1 = l1.split()
+                block.append((l1[0],l1[1],int(l1[2])))
+                l1 = mi.readline()
     for i in range(len(tweets)):
         tweet_filtrado = filter_file(tweets[i].text, stopwords)
         tweet_filtrado_unique = list(set(tweet_filtrado))
         for word in tweet_filtrado_unique:
-            block.append((word,tweets[i].id,tweet_filtrado.count(word)))
+            block.append((word,str(tweets[i].id),tweet_filtrado.count(word)))
             if (sys.getsizeof(block) > BLOCKSIZE):
                 tmp_block = block[len(block)-1]
                 block.pop()
@@ -76,7 +81,8 @@ def addTweets(tweets):
     with open("templates/stopwords.txt") as sw:
         stopwords = json.load(sw)
     stopwords = stopwords["words"]
-    Blocks += buildBlocks(tweets,stopwords)
+    Blocks = buildBlocks(tweets,stopwords)
+
 
 def initBlocks(tweets, Blocksize):
     global Blocks

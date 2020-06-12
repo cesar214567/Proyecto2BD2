@@ -60,8 +60,8 @@ def writeIndex(f):
         while l1:
             word = l1[0]
             while l1 and word==l1[0]:
-                tweets.append(int(l1[1]))
-                matrix[word][int(l1[1])] = int(l1[2])
+                tweets.append(l1[1])
+                matrix[word][l1[1]] = int(l1[2])
                 l1 = f1.readline().split()
     os.remove(f)
     return list(set(tweets))
@@ -70,6 +70,7 @@ def writeIndex(f):
 def retrieve(query):
     f = open("temp.txt", "w+")
     f.close()
+    print(filters.Blocks)
     for i in range(filters.Blocks):
         combine("temp.txt",i,query)
     return writeIndex("temp.txt")
@@ -83,10 +84,12 @@ def cosineScore(query, k):
         df[i] = len(matrix[i])
     q = {}
     for i in unique_keys:
-        q[i] = math.log10(1+query.count(i))*math.log10(filters.N/df[i])
+        if i in df.keys():
+            q[i] = math.log10(1+query.count(i))*math.log10(filters.N/df[i])
     for i in matrix.keys():
         for j in matrix[i].keys():
-            matrix[i][j] = math.log10(1+matrix[i][j]) * math.log10(filters.N/df[i])
+            if i in df.keys() and j in matrix[i].keys():
+                matrix[i][j] = math.log10(1+matrix[i][j]) * math.log10(filters.N/df[i])
     score = []
     qacum = sum(q[i]*q[i] for i in q.keys())
     for i in tweets:
@@ -112,6 +115,8 @@ def executeQuery(query,k):
     stopwords = stopwords["words"]
     tokens = filter_query(query, stopwords)
     results = cosineScore(tokens,k)
+    for i in results:
+        print(i)
     return results
 
 if __name__ == '__main__':
