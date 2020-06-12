@@ -87,5 +87,6 @@ def addTweets(tweets):
 def initBlocks(tweets, Blocksize):
     global Blocks
     global BLOCKSIZE
+    Blocks = 0
     BLOCKSIZE = Blocksize
     addTweets(tweets)
